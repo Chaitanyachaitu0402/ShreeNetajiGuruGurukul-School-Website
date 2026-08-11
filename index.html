@@ -160,61 +160,176 @@
         </div>
       </header>
 
-      <div class="hero-banner hero-style-7">
-        <div class="container">
-          <div class="row justify-content-center">
-            <div class="col-lg-8">
-              <div class="banner-content">
-                <!-- <span
-                  class="sub-title"
-                  data-sal-delay="50"
-                  data-sal="slide-up"
-                  data-sal-duration="1000" style="color: white;"
-                >
-                  Excellence in Education • Character • Leadership
-                </span> -->
+     <section class="hero-banner hero-style-7">
 
-                <h1
-                  class="title"
-                  data-sal-delay="100"
-                  data-sal="slide-up"
-                  data-sal-duration="1000" style="color: white;"
-                >
-                  Welcome to
-                </h1>
-                <img src="./assets/images/logo/sngg_logo-removebg-preview.png" style="width: 40%; border-radius: 10px; margin-bottom: 30px;" alt="Logo of Shree Netaji Gurudev Gurukul" />
+    <!-- FULL SCREEN BACKGROUND -->
+    <div class="hero-background">
+        <div class="hero-bg-image active"></div>
+        <div class="hero-bg-image"></div>
+    </div>
 
+    <!-- CONTENT -->
+    <div class="container">
+        <div class="banner-content">
 
-                <!-- <p
-                  class="description"
-                  data-sal-delay="200"
-                  data-sal="slide-up"
-                  data-sal-duration="1000" style="color: white;"
-                >
-                  Our nurturing environment empowers students to become
-                  responsible, confident, and compassionate individuals ready to
-                  contribute positively to society.
-                </p> -->
+            <h1
+                class="title"
+                data-sal-delay="100"
+                data-sal="slide-up"
+                data-sal-duration="1000"
+                style="color: white;"
+            >
+                Welcome to
+            </h1>
 
-                <div
-                  class="banner-btn"
-                  data-sal-delay="400"
-                  data-sal="slide-up"
-                  data-sal-duration="1000"
+            <img
+                src="./assets/images/logo/sngg_logo-removebg-preview.png"
+                style="width: 40%; border-radius: 10px; margin-bottom: 30px;"
+                alt="Logo of Shree Netaji Gurudev Gurukul"
+            />
+
+            <div
+                class="banner-btn"
+                data-sal-delay="400"
+                data-sal="slide-up"
+                data-sal-duration="1000"
+            >
+                <a
+                    href="index.html#about"
+                    class="edu-btn btn-curved"
                 >
-                  <a href="index.html#about" class="edu-btn btn-curved">
                     Explore Our School
                     <i class="icon-4"></i>
-                  </a>
+                </a>
 
-                  <a href="contact.html" class="edu-btn btn-border" style="color: white;">
+                <a
+                    href="contact.html"
+                    class="edu-btn btn-border"
+                    style="color: white;"
+                >
                     Contact Us
-                  </a>
-                </div>
-              </div>
+                </a>
             </div>
-          </div>
+
         </div>
+    </div>
+
+</section>
+          
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const images = [
+        "./assets/images/bg/school.jpeg",
+        "./assets/images/gallery/1.jpeg",
+        "./assets/images/gallery/2.jpeg",
+        "./assets/images/gallery/3.jpeg",
+        "./assets/images/gallery/4.JPG",
+        "./assets/images/gallery/5.JPG",
+        "./assets/images/gallery/6.JPG",
+        "./assets/images/gallery/7.JPG",
+        "./assets/images/gallery/11.JPG",
+        "./assets/images/gallery/9.JPG",
+        "./assets/images/gallery/23.JPG",
+        "./assets/images/gallery/19.JPG",
+        "./assets/images/gallery/35.JPG",
+        "./assets/images/gallery/50.JPG",
+        "./assets/images/gallery/70.JPG",
+        "./assets/images/gallery/32.JPG",
+    ];
+
+    const backgrounds = document.querySelectorAll(
+        ".hero-banner.hero-style-7 .hero-bg-image"
+    );
+
+    /* Make sure the required elements exist */
+    if (backgrounds.length < 2 || images.length < 2) {
+        console.warn("Hero slideshow requires two background layers.");
+        return;
+    }
+
+    let currentIndex = 0;
+    let activeLayer = 0;
+
+    /* -----------------------------------------
+       PRELOAD ALL IMAGES
+    ----------------------------------------- */
+
+    images.forEach(function (src) {
+        const img = new Image();
+        img.src = src;
+    });
+
+
+    /* -----------------------------------------
+       SET FIRST IMAGE
+    ----------------------------------------- */
+
+    backgrounds[0].style.backgroundImage =
+        'url("' + images[0] + '")';
+
+    backgrounds[0].classList.add("active");
+
+
+    /* -----------------------------------------
+       PREPARE SECOND LAYER
+    ----------------------------------------- */
+
+    backgrounds[1].style.backgroundImage =
+        'url("' + images[1] + '")';
+
+
+    /* -----------------------------------------
+       CHANGE IMAGE EVERY 2 SECONDS
+    ----------------------------------------- */
+
+    setInterval(function () {
+
+        /*
+         * Get next image
+         */
+        currentIndex =
+            (currentIndex + 1) % images.length;
+
+
+        /*
+         * Select the layer which is currently hidden
+         */
+        const nextLayer =
+            activeLayer === 0 ? 1 : 0;
+
+
+        /*
+         * Put the next image on the hidden layer
+         */
+        backgrounds[nextLayer].style.backgroundImage =
+            'url("' + images[currentIndex] + '")';
+
+
+        /*
+         * Fade the new image in
+         */
+        backgrounds[nextLayer].classList.add("active");
+
+
+        /*
+         * After the transition finishes,
+         * hide the previous layer.
+         */
+        setTimeout(function () {
+
+            backgrounds[activeLayer].classList.remove("active");
+
+            activeLayer = nextLayer;
+
+        }, 600);
+
+    }, 2000);
+
+});
+</script>
+            
         <!-- <div class="banner-gallery">
           <div
             class="thumbnail thumbnail-1"
@@ -505,10 +620,11 @@
             </div>
             <div class="col-lg-6">
               <div class="about-image-gallery">
-                <div class="main-img-1">
+                <div class="main-img-1" style="border-radius: 50%; overflow: hidden; width: 400px; height: 400px; margin: auto;">
                   <img
                     src="assets/images/director/mam.jpeg"
-                    alt="A large group of school children, both boys and girls, are standing outdoors under a large tree. "
+                    alt="Diretor"
+                    style=" width: 100%; height: auto;"
                   />
                 </div>
                 <!-- <div class="main-img-2 bounce-slide">

@@ -15882,13 +15882,70 @@ body .tpd-size-medium .tpd-content {
     justify-content: center;
     position: relative;
     overflow: hidden;
+    background: #000;
+    z-index: 1;
+}
 
-    background-image: url("../images/bg/school.jpeg");
+/* Background container */
+.hero-banner.hero-style-7 .hero-background {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -1;
+}
+
+/* Background layers */
+.hero-banner.hero-style-7 .hero-bg-image {
+    position: absolute;
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
     background-size: cover;
-    background-position: center;
+    background-position: center center;
     background-repeat: no-repeat;
 
-    z-index: 1;
+    opacity: 0;
+
+    /* Start slightly foggy */
+    filter: blur(14px);
+
+    transform: scale(1.03);
+
+    transition:
+        opacity 1.2s ease-in-out,
+        filter 1.2s ease-in-out,
+        transform 1.8s ease-in-out;
+
+    will-change: opacity, filter, transform;
+}
+
+/* Visible image */
+.hero-banner.hero-style-7 .hero-bg-image.active {
+    opacity: 1;
+    filter: blur(0);
+    transform: scale(1);
+}
+
+/* Dark overlay */
+.hero-banner.hero-style-7 .hero-background::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background: rgba(0, 0, 0, 0.30);
+
+    z-index: 5;
+    pointer-events: none;
+}
+
+/* Content stays above background */
+.hero-banner.hero-style-7 .banner-content {
+    position: relative;
+    z-index: 10;
 }
 
 /* Light Orange Transparent Overlay */
